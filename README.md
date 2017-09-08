@@ -13,3 +13,4 @@
 3 .将uFrame的事件机制和kbe的事件机制结合（两个事件机制均可接收kbe插件层抛出的事件并进行处理）
 
 工程中有一个示例demo（Assets/_MagicFire/ProjectsCode/KbeBalls），是房间类demo：kbengine_unity3d_balls的uFrameMVVM重制版，服务端脚本没有做任何改动，可以直接使用。
+
