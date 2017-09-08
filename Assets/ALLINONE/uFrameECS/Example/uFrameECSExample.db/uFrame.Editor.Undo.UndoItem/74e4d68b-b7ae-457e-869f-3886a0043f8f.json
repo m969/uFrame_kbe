@@ -1,0 +1,8 @@
+{
+	"Identifier":"74e4d68b-b7ae-457e-869f-3886a0043f8f"	, 
+	"Time":"9/5/2017 5:43:43 PM"	, 
+	"Group":174343	, 
+	"DataRecordId":"1e2fb27a-0bf6-41cf-bf99-86c332af16bb"	, 
+	"Type":2	, 
+	"RecordType":"uFrame.ECS.Editor.EcsWorkspace, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
+	"Data":"{\r\n\t\"Identifier\":\"1e2fb27a-0bf6-41cf-bf99-86c332af16bb\"\t, \r\n\t\"Name\":\"ECSExampleWorkspace\"\t, \r\n\t\"CurrentGraphId\":\"d3dc3470-aba1-4ae8-a8b5-b650c0225b0c\"\t, \r\n\t\"Expanded\":false}\r\n"}
