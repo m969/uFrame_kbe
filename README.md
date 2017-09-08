@@ -1,5 +1,7 @@
 # uFrame_kbe
 
+不知道uFrame的请百度uFrame，不知道kbe的请百度kbengine。
+
 这个工程将uFrame的MVVM框架和kbengine的unity客户端插件结合，可以改善客户端的代码结构，提升开发效率。
 
 在vs中，你可以通过全局代码搜索 uFrame_kbe 关键字，有 uFrame_kbe 关键字标志的地方都是为了使两个插件可以协同工作而增加或修改的代码。
