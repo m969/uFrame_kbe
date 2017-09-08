@@ -14,3 +14,6 @@
 
 工程中有一个示例demo（Assets/_MagicFire/ProjectsCode/KbeBalls），是房间类demo：kbengine_unity3d_balls的uFrameMVVM重制版，服务端脚本没有做任何改动，可以直接使用。
 
+![框架示例](https://raw.githubusercontent.com/m969/uFrame_kbe/master/uFrame_kbe01.png)
+![框架示例](https://raw.githubusercontent.com/m969/uFrame_kbe/master/uFrame_kbe02.png)
+![框架示例](https://raw.githubusercontent.com/m969/uFrame_kbe/master/uFrame_kbe03.png)
