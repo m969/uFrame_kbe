@@ -25,7 +25,7 @@ namespace uFrame.MVVM
             where TController : Controller
         {
             var createMethodInfo = controller.GetType().GetMethod("Create", new Type[] {});
-            uFrameKernel.KbeClientapp.args.ViewModelControllers.Add(controller.GetType().Name, new KeyValuePair<object, MethodInfo>(controller, createMethodInfo));//ycm
+            uFrameKernel.KbeClientapp.args.ViewModelControllers.Add(controller.GetType().Name, new KeyValuePair<object, MethodInfo>(controller, createMethodInfo));//uFrame_kbe
 
             container.RegisterInstance<Controller>(controller, controller.GetType().Name, false);
             container.RegisterInstance<ISystemService>(controller, controller.GetType().Name, false);

@@ -40,7 +40,7 @@ namespace MagicFire
 
     public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
     {
-        protected static T _instance = null; //ycm: protected internal  ->  private
+        protected static T _instance = null; // protected internal  ->  private
 
         public static T Instance
         {

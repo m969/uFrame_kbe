@@ -42,10 +42,10 @@
 		public bool inited = false;
         
 		// entityDef属性，服务端同步过来后存储在这里
-		protected Dictionary<string, Property> defpropertys_ = //ycm:private
+		protected Dictionary<string, Property> defpropertys_ = //uFrame_kbe:private
             new Dictionary<string, Property>();
 
-        protected Dictionary<UInt16, Property> iddefpropertys_ = //ycm:private
+        protected Dictionary<UInt16, Property> iddefpropertys_ = //uFrame_kbe:private
 			new Dictionary<UInt16, Property>();
 
 		public static void clear()
@@ -54,13 +54,13 @@
 
 		public Entity()
 		{
-            //ycm
+            //uFrame_kbe
             if (EntityDef.moduledefs == null)
                 return;
 
             if (EntityDef.moduledefs.ContainsKey(GetType().Name) == false)
                 return;
-            //ycm
+            //uFrame_kbe
 
             foreach (Property e in EntityDef.moduledefs[GetType().Name].propertys.Values)
             {
@@ -77,7 +77,7 @@
                 iddefpropertys_.Add(e.properUtype, newp);
             }
 
-            //Debug.Log("Entity() " + GetType().Name);//ycm
+            //Debug.Log("Entity() " + GetType().Name);//uFrame_kbe
         }
 		
 		public virtual void onDestroy ()
@@ -128,7 +128,7 @@
 		
 		public void setDefinedPropertyByUType(UInt16 utype, object val)
 		{
-            if (iddefpropertys_.ContainsKey(utype))//ycm
+            if (iddefpropertys_.ContainsKey(utype))//uFrame_kbe
 			    iddefpropertys_[utype].val = val;
 		}
 		
@@ -163,10 +163,10 @@
 						{
 							if(prop.isOwnerOnly() && !isPlayer())
 								continue;
-                            //ycm
-                            //Debug.Log(setmethod + " " + setmethod.Name + " " + oldval);//ycm
+                            //uFrame_kbe
+                            //Debug.Log(setmethod + " " + setmethod.Name + " " + oldval);//uFrame_kbe
                             //UnityEngine.Debug.Log("EntityThread.ManagedThreadId " + System.Threading.Thread.CurrentThread.ManagedThreadId);
-                            //ycm
+                            //uFrame_kbe
                             setmethod.Invoke(this, new object[]{oldval});
 						}
 					}

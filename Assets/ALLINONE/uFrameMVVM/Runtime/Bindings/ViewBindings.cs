@@ -376,10 +376,10 @@ namespace uFrame.MVVM.Bindings
             {
                 return
                     bindable.AddBinding(
-                        property.Where(p => property.LastValue != property.ObjectValue).ObserveOnMainThread().Subscribe(changed));//ycm:ObserveOnMainThread()
+                        property.Where(p => property.LastValue != property.ObjectValue).ObserveOnMainThread().Subscribe(changed));//uFrame_kbe:ObserveOnMainThread()
             }
 
-            return bindable.AddBinding(property.ObserveOnMainThread().Subscribe(changed));//ycm:ObserveOnMainThread()
+            return bindable.AddBinding(property.ObserveOnMainThread().Subscribe(changed));//uFrame_kbe:ObserveOnMainThread()
         }
 
         /// <summary>
@@ -399,10 +399,10 @@ namespace uFrame.MVVM.Bindings
             {
                 return
                     bindable.AddBinding(
-                        property.Where(p => property.LastValue != property.ObjectValue).ObserveOnMainThread().Subscribe(changed));//ycm:ObserveOnMainThread()
+                        property.Where(p => property.LastValue != property.ObjectValue).ObserveOnMainThread().Subscribe(changed));//uFrame_kbe:ObserveOnMainThread()
             }
 
-            return bindable.AddBinding(property.ObserveOnMainThread().Subscribe(changed));//ycm:ObserveOnMainThread()
+            return bindable.AddBinding(property.ObserveOnMainThread().Subscribe(changed));//uFrame_kbe:ObserveOnMainThread()
         }
 
         /// <summary>
@@ -438,7 +438,7 @@ namespace uFrame.MVVM.Bindings
             Signal<TCommandType> sourceCommand, Action<TCommandType> executed)
             where TCommandType : ViewModelCommand, new()
         {
-            return bindable.AddBinding(sourceCommand.ObserveOnMainThread().Subscribe(executed));//ycm:ObserveOnMainThread()
+            return bindable.AddBinding(sourceCommand.ObserveOnMainThread().Subscribe(executed));//uFrame_kbe:ObserveOnMainThread()
         }
 
         /// <summary>
@@ -453,7 +453,7 @@ namespace uFrame.MVVM.Bindings
         public static IDisposable BindProperty<TBindingType>(this IBindable bindable,
             Func<P<TBindingType>> sourceProperty, Action<TBindingType> targetSetter)
         {
-            return bindable.AddBinding(sourceProperty().Subscribe(targetSetter));//ycm:ObserveOnMainThread()
+            return bindable.AddBinding(sourceProperty().Subscribe(targetSetter));//uFrame_kbe:ObserveOnMainThread()
         }
 
         ///// <summary>

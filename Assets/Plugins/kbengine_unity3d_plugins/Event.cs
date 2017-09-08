@@ -244,13 +244,13 @@ namespace KBEngine
 			通常由渲染表现层来注册, 例如：监听角色血量属性的变化， 如果UI层注册这个事件，
 			事件触发后就可以根据事件所附带的当前血量值来改变角色头顶的血条值。
 		*/
-        private static MethodInfo _publishMethodInfo;//ycm
-        private static Dictionary<string, Type> _eventTypes = new Dictionary<string, Type>();//ycm
+        private static MethodInfo _publishMethodInfo;//uFrame_kbe
+        private static Dictionary<string, Type> _eventTypes = new Dictionary<string, Type>();//uFrame_kbe
 		public static void fireOut(string eventname, params object[] args)
 		{
             fire_(events_out, firedEvents_out, eventname, args);
 
-            //ycm
+            //uFrame_kbe
             var eventAggregator = KBEngineApp.app.getInitArgs().EventAggregator;
             if (_publishMethodInfo == null)
                 _publishMethodInfo = eventAggregator.GetType().GetMethod("Publish");
@@ -263,7 +263,7 @@ namespace KBEngine
             {
                 foreach (System.Reflection.Assembly ass in AppDomain.CurrentDomain.GetAssemblies())
                 {
-                    eventType = ass.GetType(KBEngineApp.app.getInitArgs().KbeMvvmNameSpace + "." + publishEventName);//ycm
+                    eventType = ass.GetType(KBEngineApp.app.getInitArgs().KbeMvvmNameSpace + "." + publishEventName);//uFrame_kbe
 
                     if (eventType == null)
                         eventType = ass.GetType(publishEventName);
@@ -279,7 +279,7 @@ namespace KBEngine
                 var evt = Activator.CreateInstance(eventType, args);
                 _publishMethodInfo.MakeGenericMethod(eventType).Invoke(eventAggregator, new object[] { evt });
             }
-            //ycm
+            //uFrame_kbe
         }
 
 		/*

@@ -12,8 +12,8 @@ namespace KBEngine
 	*/
     public class KBEngineArgs
     {
-        public object EventAggregator;  //ycm
-        public string KbeMvvmNameSpace;  //ycm
+        public object EventAggregator;  //uFrame_kbe
+        public string KbeMvvmNameSpace;  //uFrame_kbe
         public Dictionary<string, KeyValuePair<object, MethodInfo>> ViewModelControllers = new Dictionary<string, KeyValuePair<object, MethodInfo>>();
 
         // 登录ip和端口

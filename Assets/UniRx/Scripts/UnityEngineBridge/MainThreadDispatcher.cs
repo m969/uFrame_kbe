@@ -255,7 +255,7 @@ namespace UniRx
                         var distpacher2 = Instance;
                         if (distpacher2 != null)
                         {
-                            DispatcherStartCoroutine(routine);//ycm: dispatcher2.StartCoroutine(routine);
+                            DispatcherStartCoroutine(routine);//uFrame_kbe: dispatcher2.StartCoroutine(routine);
                         }
                     });
                 }
@@ -271,7 +271,7 @@ namespace UniRx
             var dispatcher = Instance;
             if (dispatcher != null)
             {
-                return dispatcher.StartCoroutine(routine);//ycm: dispatcher.StartCoroutine(routine);
+                return dispatcher.StartCoroutine(routine);//uFrame_kbe: dispatcher.StartCoroutine(routine);
             }
             else
             {

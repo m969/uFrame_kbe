@@ -182,7 +182,7 @@ namespace uFrame.Kernel
             yield return new WaitForEndOfFrame();
             this.Publish(new GameReadyEvent());
 
-            //ycm
+            //uFrame_kbe
             this.OnEvent<ViewModelPropertyChangedEvent>().ObserveOnMainThread().Subscribe(evt =>
             {
                 evt.Handler(evt.Sender, new PropertyChangedEventArgs(evt.PropertyName));
@@ -203,7 +203,7 @@ namespace uFrame.Kernel
                     invokeMethod.Invoke(evt.Action, new object[] { evt.Command });
                 }
             });
-            //ycm
+            //uFrame_kbe
         }
 
         private Dictionary<string, MethodInfo> _commandInvokeMethodInfos = new Dictionary<string, MethodInfo>();

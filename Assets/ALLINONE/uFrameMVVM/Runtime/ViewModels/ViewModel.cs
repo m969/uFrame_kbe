@@ -175,7 +175,7 @@ namespace uFrame.MVVM.ViewModels
         /// <param name="propertyName"></param>
         public virtual void OnPropertyChanged(string propertyName)
         {
-            //ycm
+            //uFrame_kbe
             //UnityEngine.Debug.Log("CurrentThread.ManagedThreadId " + System.Threading.Thread.CurrentThread.ManagedThreadId);
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
@@ -195,7 +195,7 @@ namespace uFrame.MVVM.ViewModels
                     //KBEngine.Event.fireOut("OnPropertyChanged", handler, this, propertyName);
                 }
             }
-            //ycm
+            //uFrame_kbe
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace uFrame.MVVM.ViewModels
         /// <param name="propertyName"></param>
         public virtual void OnPropertyChanged(object sender, string propertyName)
         {
-            //ycm
+            //uFrame_kbe
             //UnityEngine.Debug.Log("CurrentThread.ManagedThreadId " + System.Threading.Thread.CurrentThread.ManagedThreadId);
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
@@ -225,7 +225,7 @@ namespace uFrame.MVVM.ViewModels
                     //KBEngine.Event.fireOut("OnPropertyChanged", handler, sender, propertyName);
                 }
             }
-            //ycm
+            //uFrame_kbe
         }
 
 #if !DLL

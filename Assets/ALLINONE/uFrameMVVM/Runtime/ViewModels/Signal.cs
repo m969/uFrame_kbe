@@ -43,7 +43,7 @@ namespace uFrame.MVVM.ViewModels
         {
             value.Sender = _viewModel;
 
-            //ycm
+            //uFrame_kbe
             if (Action != null)
             {
                 if (System.Threading.Thread.CurrentThread.ManagedThreadId == 1)
@@ -60,7 +60,7 @@ namespace uFrame.MVVM.ViewModels
                     });
                 }
             }
-            //ycm
+            //uFrame_kbe
 
             _signalSubject.OnNext(value);
 

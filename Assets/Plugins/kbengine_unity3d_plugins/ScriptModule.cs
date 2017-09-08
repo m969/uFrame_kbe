@@ -35,7 +35,7 @@
 
 			foreach (System.Reflection.Assembly ass in AppDomain.CurrentDomain.GetAssemblies()) 
 			{
-				script = ass.GetType (KBEngineApp.app.getInitArgs().KbeMvvmNameSpace + "." + modulename);//ycm
+				script = ass.GetType (KBEngineApp.app.getInitArgs().KbeMvvmNameSpace + "." + modulename);//uFrame_kbe
 				if(script == null)
 				{
 					script = ass.GetType (modulename);

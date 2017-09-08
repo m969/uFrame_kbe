@@ -853,7 +853,7 @@ namespace KBEngine
 			
 			while(stream.length() > 0)
 			{
-				string scriptmodule_name = stream.readString() + "ViewModel"; //ycm
+				string scriptmodule_name = stream.readString() + "ViewModel"; //uFrame_kbe
 				UInt16 scriptUtype = stream.readUint16();
 				UInt16 propertysize = stream.readUint16();
 				UInt16 methodsize = stream.readUint16();
@@ -1430,7 +1430,7 @@ namespace KBEngine
 			if(!this.entities.ContainsKey(eid))
 			{
 				ScriptModule module = null;
-				if(!EntityDef.moduledefs.TryGetValue(entityType + "ViewModel", out module)) //ycm
+				if(!EntityDef.moduledefs.TryGetValue(entityType + "ViewModel", out module)) //uFrame_kbe
 				{
 					Dbg.ERROR_MSG("KBEngine::Client_onCreatedProxies: not found module(" + entityType + ")!");
 					return;
@@ -1439,15 +1439,15 @@ namespace KBEngine
 				Type runclass = module.script;
 				if(runclass == null)
 					return;
-                //ycm
+                //uFrame_kbe
                 //Entity entity = (Entity)Activator.CreateInstance(runclass, new object[] {_args.EventAggregator});
                 //Entity entity = (Entity) _args.CreateViewModelMethodInfo.Invoke(_args.ViewModelControllers[entity_type + "Controller"], null);
 			    var controller = _args.ViewModelControllers[entity_type + "Controller"].Key;
                 var createMethodInfo = _args.ViewModelControllers[entity_type + "Controller"].Value;
                 Entity entity = (Entity)createMethodInfo.Invoke(controller, null);
-                //ycm
+                //uFrame_kbe
                 entity.id = eid;
-				entity.className = entityType + "ViewModel";//ycm
+				entity.className = entityType + "ViewModel";//uFrame_kbe
 				
 				entity.baseMailbox = new Mailbox();
 				entity.baseMailbox.id = eid;
@@ -1606,7 +1606,7 @@ namespace KBEngine
 							setmethod.Invoke(entity, new object[]{oldval});
 					}
 				}
-                Event.fireOut("OnUpdatePropertys", entity, propertydata.name, oldval);//ycm
+                Event.fireOut("OnUpdatePropertys", entity, propertydata.name, oldval);//uFrame_kbe
             }
 		}
 
@@ -1660,7 +1660,7 @@ namespace KBEngine
 			{
                 if (methoddata.handler != null)
                     methoddata.handler.Invoke(entity, args);
-                KBEngine.Event.fireOut("OnRemoteMethodCall", entity, methoddata.name, args);//ycm
+                KBEngine.Event.fireOut("OnRemoteMethodCall", entity, methoddata.name, args);//uFrame_kbe
             }
             catch (Exception e)
             {
@@ -1719,12 +1719,12 @@ namespace KBEngine
 				if(runclass == null)
 					return;
 
-                //ycm
+                //uFrame_kbe
                 //entity = (Entity)Activator.CreateInstance(runclass, new object[] { _args.EventAggregator });
                 var controller = _args.ViewModelControllers[entity_type + "Controller"].Key;
                 var createMethodInfo = _args.ViewModelControllers[entity_type + "Controller"].Value;
                 entity = (Entity)createMethodInfo.Invoke(controller, null);
-                //ycm
+                //uFrame_kbe
                 entity.id = eid;
 				entity.className = entityType;
 				
