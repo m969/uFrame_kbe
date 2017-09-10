@@ -1,4 +1,5 @@
 namespace KbeBalls {
+    using KbeBalls;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -12,9 +13,5 @@ namespace KbeBalls {
             // This is called when a AvatarViewModel is created
         }
 
-        public override void ReSpawn(AvatarViewModel viewModel, ReSpawnCommand arg)
-        {
-            base.ReSpawn(viewModel, arg);
-        }
     }
 }

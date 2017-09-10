@@ -1,8 +1,0 @@
-{
-	"Identifier":"aa878462-7034-402d-b739-2a7eb74958b3"	, 
-	"Time":"9/6/2017 1:16:24 AM"	, 
-	"Group":11624	, 
-	"DataRecordId":"d5bd36a0-9e79-40c6-810e-c42872038f1b"	, 
-	"Type":2	, 
-	"RecordType":"uFrame.MVVM.PropertiesChildItem, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"RelatedType\":\"Vector3\"\t, \r\n\t\"Identifier\":\"d5bd36a0-9e79-40c6-810e-c42872038f1b\"\t, \r\n\t\"NodeId\":\"f0162696-b680-45e5-ab78-bf099f943e7b\"\t, \r\n\t\"Order\":1\t, \r\n\t\"Name\":\"Position\"}\r\n"}
