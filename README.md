@@ -4,6 +4,9 @@
 ==
 更新uFrame，更新UniRX。
 
+![框架示例](https://raw.githubusercontent.com/m969/uFrame_kbe/master/uFrame_kbe04.png)
+
+这些是uFrame的内部Command，不能再作为自定义Command，否则在生成代码时会出错。
 
 之前
 ==
