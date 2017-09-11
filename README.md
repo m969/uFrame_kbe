@@ -2,7 +2,7 @@
 
 更新（2017.09.11）
 ==
-更新uFrame，更新UniRX。
+更新uFrame，更新UniRX。（Unity 2017） (Scripting Runtime Version: .Net 4.6)
 
 ![框架示例](https://raw.githubusercontent.com/m969/uFrame_kbe/master/uFrame_kbe04.png)
 
