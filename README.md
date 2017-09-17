@@ -1,9 +1,28 @@
 # uFrame_kbe
 
+注意 
+==
+这还是个实验性项目, 不建议新手入坑, 不建议用于实际项目.
+
+要用好这个框架,你需要以下的知识储备:
+
+1.熟悉Unity3d
+
+2.熟悉设计模式(观察者模式, 事件模式, 命令模式等)
+
+3.熟悉MVC框架或MVVM框架
+
+4.熟悉响应式编程RX ( Reactive Extensions ) 或 UniRX ( Reactive Extensions Unity3d版 )
+
+学习uFrame可以通过Youtube搜索uFrame
+
 更新（2017.09.11）
 ==
-更新uFrame，更新UniRX。
+更新uFrame，更新UniRX。（Unity 2017） (Scripting Runtime Version: .Net 4.6)
 
+![框架示例](https://raw.githubusercontent.com/m969/uFrame_kbe/master/uFrame_kbe04.png)
+
+这些是uFrame的内部Command，不能再作为自定义Command，否则在生成代码时会出错。
 
 之前
 ==
