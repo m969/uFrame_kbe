@@ -92,6 +92,12 @@ namespace KbeBalls {
             this.ReSpawn.OnNext(argument);
         }
         
+        public virtual void ReSpawn_(String Password) {
+            var cmd = new ReSpawnCommand();
+            cmd.Password = Password;
+            this.ReSpawn.OnNext(cmd);
+        }
+        
         public override void Read(uFrame.Kernel.Serialization.ISerializerStream stream) {
             base.Read(stream);
             this.name = stream.DeserializeString("name");;

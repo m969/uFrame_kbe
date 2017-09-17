@@ -35,12 +35,6 @@ namespace KbeBalls {
             }
         }
 
-        public override void OnPropertyChanged(object sender, string propertyName)
-        {
-            base.OnPropertyChanged(sender, propertyName);
-            this.Execute(new ReSpawnCommand());
-        }
-
         public void relive(Byte type)
         {
             cellCall("relive", type);

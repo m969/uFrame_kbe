@@ -948,8 +948,8 @@ namespace KBEngine
 					if(Class != null)
 					{
 						try{
-							savedata.handler = Class.GetMethod(name);
-						}
+							savedata.handler = Class.GetMethod(name + "_");//uFrame_kbe
+                        }
 						catch (Exception e)
 						{
 							string err = "KBEngine::Client_onImportClientEntityDef: " + scriptmodule_name + "." + name + ", error=" + e.ToString();

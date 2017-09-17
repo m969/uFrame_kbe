@@ -246,6 +246,37 @@ namespace uFrame.MVVM.Templates
             Ctx._("this.{0}.OnNext(argument)", cmd.Name);
         }
 
+        //uFrame_kbe
+        [ForEach("NodeCommands"), GenerateMethod]
+        public virtual void _Name__()
+        {
+
+            var cmd = Ctx.ItemAs<CommandsChildItem>();
+
+            if (cmd.HasArgument)
+            {
+                foreach (var outputCommandProperty in cmd.OutputCommand.Properties)
+                {
+                    Ctx.CurrentMethod.Parameters.Add(new CodeParameterDeclarationExpression(outputCommandProperty.RelatedTypeName, outputCommandProperty.Name));
+                }
+            }
+
+            if (!cmd.HasArgument)
+            {
+                Ctx._("this.{0}.OnNext(new {1}())", cmd.Name, cmd.ClassName);
+            }
+            else
+            {
+                Ctx._("var cmd = new {0}()", cmd.ClassName);
+                foreach (var outputCommandProperty in cmd.OutputCommand.Properties)
+                {
+                    Ctx._("cmd." + outputCommandProperty.Name + " = " + outputCommandProperty.Name);
+                }
+                Ctx._("this.{0}.OnNext(cmd)", cmd.Name);
+            }
+        }
+        //uFrame_kbe
+
         #endregion
 
         #region Serialization
