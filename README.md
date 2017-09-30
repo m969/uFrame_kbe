@@ -16,6 +16,14 @@
 
 学习uFrame可以通过Youtube搜索uFrame
 
+
+
+YouTube视频教程
+==
+[uFrame_kbe教程（幻火项目移植记录）](https://www.youtube.com/watch?v=U92KrtGQ5Mc&list=PLS2_hNFiin5IKlV_yDac1wAH_3L12Mk_N)
+
+
+
 更新（2017.09.11）
 ==
 更新uFrame，更新UniRX。（Unity 2017） (Scripting Runtime Version: .Net 4.6)
