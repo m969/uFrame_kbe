@@ -1451,7 +1451,7 @@ namespace KBEngine
 				
 				entity.baseMailbox = new Mailbox();
 				entity.baseMailbox.id = eid;
-				entity.baseMailbox.className = entityType;
+				entity.baseMailbox.className = entityType + "ViewModel";//uFrame_kbe
 				entity.baseMailbox.type = Mailbox.MAILBOX_TYPE.MAILBOX_TYPE_BASE;
 
 				entities[eid] = entity;
@@ -1696,6 +1696,7 @@ namespace KBEngine
 				isOnGround = stream.readInt8();
 			
 			string entityType = EntityDef.idmoduledefs[uentityType].name;
+			string entity_type = entityType.Replace("ViewModel", "");//uFrame_kbe
 			// Dbg.DEBUG_MSG("KBEngine::Client_onEntityEnterWorld: " + entityType + "(" + eid + "), spaceID(" + KBEngineApp.app.spaceID + ")!");
 			
 			Entity entity = null;
