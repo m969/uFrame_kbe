@@ -256,7 +256,7 @@ namespace KBEngine
                 _publishMethodInfo = eventAggregator.GetType().GetMethod("Publish");
 
             var publishEventName = eventname + "Event";
-            publishEventName = publishEventName.Replace("_", "");
+            //publishEventName = publishEventName.Replace("_", "");
             Type eventType = null;
 		    _eventTypes.TryGetValue(publishEventName, out eventType);
             if (eventType == null)

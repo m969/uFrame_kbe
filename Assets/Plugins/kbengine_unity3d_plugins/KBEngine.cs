@@ -949,7 +949,7 @@ namespace KBEngine
 					{
 						try{
 							savedata.handler = Class.GetMethod(name + "_");//uFrame_kbe
-                        }
+						}
 						catch (Exception e)
 						{
 							string err = "KBEngine::Client_onImportClientEntityDef: " + scriptmodule_name + "." + name + ", error=" + e.ToString();
@@ -1037,7 +1037,7 @@ namespace KBEngine
 				{
 					// Method infos = module.methods[name];
 
-					if(module.script != null && module.script.GetMethod(name) == null)
+					if(module.script != null && module.script.GetMethod(name + "_") == null)//uFrame_kbe
 					{
 						Dbg.WARNING_MSG(scriptmodule_name + "(" + module.script + "):: method(" + name + ") no implement!");
 					}
@@ -1452,7 +1452,7 @@ namespace KBEngine
 				entity.baseMailbox = new Mailbox();
 				entity.baseMailbox.id = eid;
 				entity.baseMailbox.className = entityType + "ViewModel";//uFrame_kbe
-				entity.baseMailbox.type = Mailbox.MAILBOX_TYPE.MAILBOX_TYPE_BASE;
+                entity.baseMailbox.type = Mailbox.MAILBOX_TYPE.MAILBOX_TYPE_BASE;
 
 				entities[eid] = entity;
 				
@@ -1593,20 +1593,20 @@ namespace KBEngine
 				 // propertydata.name + "=" + val + "), hasSetMethod=" + setmethod + "!");
 			
 				entity.setDefinedPropertyByUType(utype, val);
+                entity.setDefinedProperty(propertydata.name, val);
 				if(setmethod != null)
 				{
 					if(propertydata.isBase())
 					{
 						if(entity.inited)
-							setmethod.Invoke(entity, new object[]{oldval});
+							setmethod.Invoke(entity, new object[]{ val });//uFrame_kbe
 					}
 					else
 					{
 						if(entity.inWorld)
-							setmethod.Invoke(entity, new object[]{oldval});
-					}
+							setmethod.Invoke(entity, new object[]{ val });//uFrame_kbe
+                    }
 				}
-                Event.fireOut("OnUpdatePropertys", entity, propertydata.name, oldval);//uFrame_kbe
             }
 		}
 
@@ -1660,7 +1660,6 @@ namespace KBEngine
 			{
                 if (methoddata.handler != null)
                     methoddata.handler.Invoke(entity, args);
-                KBEngine.Event.fireOut("OnRemoteMethodCall", entity, methoddata.name, args);//uFrame_kbe
             }
             catch (Exception e)
             {
@@ -1696,10 +1695,10 @@ namespace KBEngine
 				isOnGround = stream.readInt8();
 			
 			string entityType = EntityDef.idmoduledefs[uentityType].name;
-			string entity_type = entityType.Replace("ViewModel", "");//uFrame_kbe
-			// Dbg.DEBUG_MSG("KBEngine::Client_onEntityEnterWorld: " + entityType + "(" + eid + "), spaceID(" + KBEngineApp.app.spaceID + ")!");
-			
-			Entity entity = null;
+            string entity_type = entityType.Replace("ViewModel", "");//uFrame_kbe
+            // Dbg.DEBUG_MSG("KBEngine::Client_onEntityEnterWorld: " + entityType + "(" + eid + "), spaceID(" + KBEngineApp.app.spaceID + ")!");
+
+            Entity entity = null;
 			
 			if(!entities.TryGetValue(eid, out entity))
 			{
@@ -1733,8 +1732,8 @@ namespace KBEngine
 				entity.cellMailbox.id = eid;
 				entity.cellMailbox.className = entityType;
 				entity.cellMailbox.type = Mailbox.MAILBOX_TYPE.MAILBOX_TYPE_CELL;
-				
-				entities[eid] = entity;
+
+                entities[eid] = entity;
 				
 				Client_onUpdatePropertys(entityMessage);
 				_bufferedCreateEntityMessage.Remove(eid);
@@ -1774,7 +1773,7 @@ namespace KBEngine
 					_entityServerPos = entity.position;
 					entity.isOnGround = isOnGround > 0;
 					entity.inWorld = true;
-					entity.enterWorld();
+                    entity.enterWorld();
 
 					if(_args.isOnInitCallPropertysSetMethods)
 						entity.callPropertysSetMethods();
@@ -2188,11 +2187,10 @@ namespace KBEngine
 			_entityServerPos.z = z;
 
 			var entity = player();
-            Debug.Log(entity.isControlled);
 			if (entity != null && entity.isControlled)
 			{
 				entity.position.Set(_entityServerPos.x, _entityServerPos.y, _entityServerPos.z);
-				Event.fireOut("updatePosition", new object[]{entity});
+                Event.fireOut("updatePosition", new object[]{entity});
 				entity.onUpdateVolatileData();
 			}
 		}
@@ -2207,7 +2205,7 @@ namespace KBEngine
 			{
 				entity.position.x = _entityServerPos.x;
 				entity.position.z = _entityServerPos.z;
-				Event.fireOut("updatePosition", new object[]{entity});
+                Event.fireOut("updatePosition", new object[]{entity});
 				entity.onUpdateVolatileData();
 			}
 		}
@@ -2597,7 +2595,7 @@ namespace KBEngine
 				
 				entity.position = pos;
 				done = true;
-				Event.fireOut("updatePosition", new object[]{entity});
+                Event.fireOut("updatePosition", new object[]{entity});
 			}
 			
 			if(done)

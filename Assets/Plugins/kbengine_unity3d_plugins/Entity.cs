@@ -20,7 +20,7 @@
 		public string className = "";
 		public Vector3 position = new Vector3(0.0f, 0.0f, 0.0f);
 		public Vector3 direction = new Vector3(0.0f, 0.0f, 0.0f);
-		public float velocity = 0.0f;
+        public float velocity = 0.0f;
 		
 		public bool isOnGround = true;
 		
@@ -76,8 +76,6 @@
                 defpropertys_.Add(e.name, newp);
                 iddefpropertys_.Add(e.properUtype, newp);
             }
-
-            //Debug.Log("Entity() " + GetType().Name);//uFrame_kbe
         }
 		
 		public virtual void onDestroy ()
@@ -101,35 +99,29 @@
 
 		public object getDefinedProperty(string name)
 		{
-			Property obj = null;
-			if(!defpropertys_.TryGetValue(name, out obj))
-			{
-				return null;
-			}
-		
-			return defpropertys_[name].val;
+			if(defpropertys_.ContainsKey(name))
+                return defpropertys_[name].val;
+		    return null;
 		}
 		
 		public void setDefinedProperty(string name, object val)
 		{
-			defpropertys_[name].val = val;
+		    if (!defpropertys_.ContainsKey(name))
+                return;
+            defpropertys_[name].val = val;
 		}
 		
 		public object getDefinedPropertyByUType(UInt16 utype)
 		{
-			Property obj = null;
-			if(!iddefpropertys_.TryGetValue(utype, out obj))
-			{
-				return null;
-			}
-			
-			return iddefpropertys_[utype].val;
-		}
+            if (iddefpropertys_.ContainsKey(utype))
+                return iddefpropertys_[utype].val;
+            return null;
+        }
 		
 		public void setDefinedPropertyByUType(UInt16 utype, object val)
 		{
-            if (iddefpropertys_.ContainsKey(utype))//uFrame_kbe
-			    iddefpropertys_[utype].val = val;
+		    if (iddefpropertys_.ContainsKey(utype)) //uFrame_kbe
+                iddefpropertys_[utype].val = val;
 		}
 		
 		/*
@@ -154,8 +146,8 @@
 						if(inited && !inWorld)
 						{
 							//Dbg.DEBUG_MSG(className + "::callPropertysSetMethods(" + prop.name + ")"); 
-							setmethod.Invoke(this, new object[]{oldval});
-						}
+						    setmethod.Invoke(this, new object[] { prop.val });//uFrame_kbe
+                        }
 					}
 					else
 					{
@@ -164,12 +156,10 @@
 							if(prop.isOwnerOnly() && !isPlayer())
 								continue;
                             //uFrame_kbe
-                            //Debug.Log(setmethod + " " + setmethod.Name + " " + oldval);//uFrame_kbe
-                            //UnityEngine.Debug.Log("EntityThread.ManagedThreadId " + System.Threading.Thread.CurrentThread.ManagedThreadId);
+                            setmethod.Invoke(this, new object[]{ prop.val });
                             //uFrame_kbe
-                            setmethod.Invoke(this, new object[]{oldval});
-						}
-					}
+                        }
+                    }
 				}
 				else
 				{
@@ -300,7 +290,7 @@
 	
 		public void enterWorld()
 		{
-			// Dbg.DEBUG_MSG(className + "::enterWorld(" + getDefinedProperty("uid") + "): " + id); 
+            // Dbg.DEBUG_MSG(className + "::enterWorld(" + getDefinedProperty("uid") + "): " + id); 
 			inWorld = true;
 			
 			try{
