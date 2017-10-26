@@ -11,11 +11,11 @@ using KBEngine;
 public class KBEMain : MonoBehaviour 
 {
 	public KBEngineApp gameapp = null;
-    public KBEngineArgs args = new KBEngineArgs();
-
-    // 在unity3d界面中可见选项
-    public DEBUGLEVEL debugLevel = DEBUGLEVEL.DEBUG;
-    public string kbeMvvmNameSpace = "KBEngine";
+    public KBEngineArgs args = new KBEngineArgs();//uFrame_kbe
+	
+	// 在unity3d界面中可见选项
+	public DEBUGLEVEL debugLevel = DEBUGLEVEL.DEBUG;
+    public string kbeMvvmNameSpace = "KBEngine";//uFrame_kbe
 	public bool isMultiThreads = true;
 	public string ip = "127.0.0.1";
 	public int port = 20013;
@@ -28,6 +28,11 @@ public class KBEMain : MonoBehaviour
 	public bool useAliasEntityID = true;
 	public bool isOnInitCallPropertysSetMethods = true;
 
+	void Awake() 
+	 {
+		DontDestroyOnLoad(transform.gameObject);
+	 }
+ 
 	// Use this for initialization
 	void Start () 
 	{
@@ -46,10 +51,10 @@ public class KBEMain : MonoBehaviour
 
 		Dbg.debugLevel = debugLevel;
 
-		//KBEngineArgs args = new KBEngineArgs();
+		//KBEngineArgs args = new KBEngineArgs();//uFrame_kbe
 
-	    args.KbeMvvmNameSpace = kbeMvvmNameSpace;
-
+	    args.KbeMvvmNameSpace = kbeMvvmNameSpace;//uFrame_kbe
+		
 		args.ip = ip;
 		args.port = port;
 		args.clientType = clientType;

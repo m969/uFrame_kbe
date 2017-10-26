@@ -20,7 +20,7 @@
 		public string className = "";
 		public Vector3 position = new Vector3(0.0f, 0.0f, 0.0f);
 		public Vector3 direction = new Vector3(0.0f, 0.0f, 0.0f);
-        public float velocity = 0.0f;
+		public float velocity = 0.0f;
 		
 		public bool isOnGround = true;
 		
@@ -42,10 +42,10 @@
 		public bool inited = false;
         
 		// entityDef属性，服务端同步过来后存储在这里
-		protected Dictionary<string, Property> defpropertys_ = //uFrame_kbe:private
-            new Dictionary<string, Property>();
+		private Dictionary<string, Property> defpropertys_ = 
+			new Dictionary<string, Property>();
 
-        protected Dictionary<UInt16, Property> iddefpropertys_ = //uFrame_kbe:private
+		private Dictionary<UInt16, Property> iddefpropertys_ = 
 			new Dictionary<UInt16, Property>();
 
 		public static void clear()
@@ -54,7 +54,7 @@
 
 		public Entity()
 		{
-            //uFrame_kbe
+			//uFrame_kbe
             if (EntityDef.moduledefs == null)
                 return;
 
@@ -62,21 +62,21 @@
                 return;
             //uFrame_kbe
 
-            foreach (Property e in EntityDef.moduledefs[GetType().Name].propertys.Values)
-            {
-                Property newp = new Property();
-                newp.name = e.name;
-                newp.utype = e.utype;
-                newp.properUtype = e.properUtype;
-                newp.properFlags = e.properFlags;
-                newp.aliasID = e.aliasID;
-                newp.defaultValStr = e.defaultValStr;
-                newp.setmethod = e.setmethod;
-                newp.val = newp.utype.parseDefaultValStr(newp.defaultValStr);
-                defpropertys_.Add(e.name, newp);
-                iddefpropertys_.Add(e.properUtype, newp);
-            }
-        }
+			foreach(Property e in EntityDef.moduledefs[GetType().Name].propertys.Values)
+			{
+				Property newp = new Property();
+				newp.name = e.name;
+				newp.utype = e.utype;
+				newp.properUtype = e.properUtype;
+				newp.properFlags = e.properFlags;
+				newp.aliasID = e.aliasID;
+				newp.defaultValStr = e.defaultValStr;
+				newp.setmethod = e.setmethod;
+				newp.val = newp.utype.parseDefaultValStr(newp.defaultValStr);
+				defpropertys_.Add(e.name, newp);
+				iddefpropertys_.Add(e.properUtype, newp);
+			}
+		}
 		
 		public virtual void onDestroy ()
 		{
@@ -99,29 +99,37 @@
 
 		public object getDefinedProperty(string name)
 		{
+			//uFrame_kbe
 			if(defpropertys_.ContainsKey(name))
                 return defpropertys_[name].val;
 		    return null;
+			//uFrame_kbe
 		}
 		
 		public void setDefinedProperty(string name, object val)
 		{
+			//uFrame_kbe
 		    if (!defpropertys_.ContainsKey(name))
                 return;
             defpropertys_[name].val = val;
+			//uFrame_kbe
 		}
 		
 		public object getDefinedPropertyByUType(UInt16 utype)
 		{
+			//uFrame_kbe
             if (iddefpropertys_.ContainsKey(utype))
                 return iddefpropertys_[utype].val;
             return null;
-        }
+			//uFrame_kbe
+		}
 		
 		public void setDefinedPropertyByUType(UInt16 utype, object val)
 		{
-		    if (iddefpropertys_.ContainsKey(utype)) //uFrame_kbe
+			//uFrame_kbe
+		    if (iddefpropertys_.ContainsKey(utype))
                 iddefpropertys_[utype].val = val;
+			//uFrame_kbe
 		}
 		
 		/*
@@ -146,8 +154,8 @@
 						if(inited && !inWorld)
 						{
 							//Dbg.DEBUG_MSG(className + "::callPropertysSetMethods(" + prop.name + ")"); 
-						    setmethod.Invoke(this, new object[] { prop.val });//uFrame_kbe
-                        }
+							setmethod.Invoke(this, new object[] { prop.val });//uFrame_kbe
+						}
 					}
 					else
 					{
@@ -155,11 +163,10 @@
 						{
 							if(prop.isOwnerOnly() && !isPlayer())
 								continue;
-                            //uFrame_kbe
-                            setmethod.Invoke(this, new object[]{ prop.val });
-                            //uFrame_kbe
-                        }
-                    }
+
+							setmethod.Invoke(this, new object[]{ prop.val });//uFrame_kbe
+						}
+					}
 				}
 				else
 				{
@@ -290,7 +297,7 @@
 	
 		public void enterWorld()
 		{
-            // Dbg.DEBUG_MSG(className + "::enterWorld(" + getDefinedProperty("uid") + "): " + id); 
+			// Dbg.DEBUG_MSG(className + "::enterWorld(" + getDefinedProperty("uid") + "): " + id); 
 			inWorld = true;
 			
 			try{

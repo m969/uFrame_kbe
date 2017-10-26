@@ -1,4 +1,4 @@
-namespace KbeBalls {
+ï»¿namespace KbeBalls {
     using KbeBalls;
     using System;
     using System.Collections;
@@ -33,7 +33,7 @@ namespace KbeBalls {
         private string labelMsg = "";
         private Color labelColor = Color.green;
 
-        // ½ÇÉ«Ìå»ý
+        // è§’è‰²ä½“ç§¯
         private int mass = 0;
         private int level = 0;
 
@@ -81,7 +81,7 @@ namespace KbeBalls {
 
         void onLoginUI()
         {
-            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 30, 200, 30), "Login(µÇÂ½)"))
+            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 30, 200, 30), "Login(ç™»é™†)"))
             {
                 Debug.Log("stringAccount:" + stringAccount);
                 Debug.Log("stringPasswd:" + stringPasswd);
@@ -92,11 +92,11 @@ namespace KbeBalls {
                 }
                 else
                 {
-                    err("account or password is error, length < 6!(ÕËºÅ»òÕßÃÜÂë´íÎó£¬³¤¶È±ØÐë´óÓÚ5!)");
+                    err("account or password is error, length < 6!(è´¦å·æˆ–è€…å¯†ç é”™è¯¯ï¼Œé•¿åº¦å¿…é¡»å¤§äºŽ5!)");
                 }
             }
 
-            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 70, 200, 30), "CreateAccount(×¢²áÕËºÅ)"))
+            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 70, 200, 30), "CreateAccount(æ³¨å†Œè´¦å·)"))
             {
                 Debug.Log("stringAccount:" + stringAccount);
                 Debug.Log("stringPasswd:" + stringPasswd);
@@ -107,7 +107,7 @@ namespace KbeBalls {
                 }
                 else
                 {
-                    err("account or password is error, length < 6!(ÕËºÅ»òÕßÃÜÂë´íÎó£¬³¤¶È±ØÐë´óÓÚ5!)");
+                    err("account or password is error, length < 6!(è´¦å·æˆ–è€…å¯†ç é”™è¯¯ï¼Œé•¿åº¦å¿…é¡»å¤§äºŽ5!)");
                 }
             }
 
@@ -121,7 +121,7 @@ namespace KbeBalls {
 
             if (showReliveGUI)
             {
-                if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "Relive(¸´»î)"))
+                if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "Relive(å¤æ´»)"))
                 {
                     KBEngine.Event.fireIn("relive", (Byte)1);
                 }
@@ -154,13 +154,13 @@ namespace KbeBalls {
                 && KBEngineApp.app.serverVersion != KBEngineApp.app.clientVersion)
             {
                 labelColor = Color.red;
-                labelMsg = "version not match(curr=" + KBEngineApp.app.clientVersion + ", srv=" + KBEngineApp.app.serverVersion + " )(°æ±¾²»Æ¥Åä)";
+                labelMsg = "version not match(curr=" + KBEngineApp.app.clientVersion + ", srv=" + KBEngineApp.app.serverVersion + " )(ç‰ˆæœ¬ä¸åŒ¹é…)";
             }
             else if (KBEngineApp.app != null && KBEngineApp.app.serverScriptVersion != ""
                 && KBEngineApp.app.serverScriptVersion != KBEngineApp.app.clientScriptVersion)
             {
                 labelColor = Color.red;
-                labelMsg = "scriptVersion not match(curr=" + KBEngineApp.app.clientScriptVersion + ", srv=" + KBEngineApp.app.serverScriptVersion + " )(½Å±¾°æ±¾²»Æ¥Åä)";
+                labelMsg = "scriptVersion not match(curr=" + KBEngineApp.app.clientScriptVersion + ", srv=" + KBEngineApp.app.serverScriptVersion + " )(è„šæœ¬ç‰ˆæœ¬ä¸åŒ¹é…)";
             }
 
             GUI.contentColor = labelColor;
@@ -187,13 +187,13 @@ namespace KbeBalls {
         public void login()
         {
             //SceneManager.LoadScene("world");
-            info("connect to server...(Á¬½Óµ½·þÎñ¶Ë...)");
+            info("connect to server...(è¿žæŽ¥åˆ°æœåŠ¡ç«¯...)");
             KBEngine.Event.fireIn("login", stringAccount, stringPasswd, System.Text.Encoding.UTF8.GetBytes("kbengine_unity3d_balls"));
         }
 
         public void createAccount()
         {
-            info("connect to server...(Á¬½Óµ½·þÎñ¶Ë...)");
+            info("connect to server...(è¿žæŽ¥åˆ°æœåŠ¡ç«¯...)");
 
             KBEngine.Event.fireIn("createAccount", stringAccount, stringPasswd, System.Text.Encoding.UTF8.GetBytes("kbengine_unity3d_balls"));
         }
@@ -202,37 +202,37 @@ namespace KbeBalls {
         {
             if (retcode != 0)
             {
-                err("createAccount is error(×¢²áÕËºÅ´íÎó)! err=" + KBEngineApp.app.serverErr(retcode));
+                err("createAccount is error(æ³¨å†Œè´¦å·é”™è¯¯)! err=" + KBEngineApp.app.serverErr(retcode));
                 return;
             }
 
             if (KBEngineApp.validEmail(stringAccount))
             {
-                info("createAccount is successfully, Please activate your Email!(×¢²áÕËºÅ³É¹¦£¬Çë¼¤»îEmail!)");
+                info("createAccount is successfully, Please activate your Email!(æ³¨å†Œè´¦å·æˆåŠŸï¼Œè¯·æ¿€æ´»Email!)");
             }
             else
             {
-                info("createAccount is successfully!(×¢²áÕËºÅ³É¹¦!)");
+                info("createAccount is successfully!(æ³¨å†Œè´¦å·æˆåŠŸ!)");
             }
         }
 
         public void onConnectionState(bool success)
         {
             if (!success)
-                err("connect(" + KBEngineApp.app.getInitArgs().ip + ":" + KBEngineApp.app.getInitArgs().port + ") is error! (Á¬½Ó´íÎó)");
+                err("connect(" + KBEngineApp.app.getInitArgs().ip + ":" + KBEngineApp.app.getInitArgs().port + ") is error! (è¿žæŽ¥é”™è¯¯)");
             else
-                info("connect successfully, please wait...(Á¬½Ó³É¹¦£¬ÇëµÈºò...)");
+                info("connect successfully, please wait...(è¿žæŽ¥æˆåŠŸï¼Œè¯·ç­‰å€™...)");
         }
 
         public void onLoginFailed(UInt16 failedcode)
         {
             if (failedcode == 20)
             {
-                err("login is failed(µÇÂ½Ê§°Ü), err=" + KBEngineApp.app.serverErr(failedcode) + ", " + System.Text.Encoding.ASCII.GetString(KBEngineApp.app.serverdatas()));
+                err("login is failed(ç™»é™†å¤±è´¥), err=" + KBEngineApp.app.serverErr(failedcode) + ", " + System.Text.Encoding.ASCII.GetString(KBEngineApp.app.serverdatas()));
             }
             else
             {
-                err("login is failed(µÇÂ½Ê§°Ü), err=" + KBEngineApp.app.serverErr(failedcode));
+                err("login is failed(ç™»é™†å¤±è´¥), err=" + KBEngineApp.app.serverErr(failedcode));
             }
         }
 
@@ -248,18 +248,18 @@ namespace KbeBalls {
 
         public void onLoginBaseappFailed(UInt16 failedcode)
         {
-            err("loginBaseapp is failed(µÇÂ½Íø¹ØÊ§°Ü), err=" + KBEngineApp.app.serverErr(failedcode));
+            err("loginBaseapp is failed(ç™»é™†ç½‘å…³å¤±è´¥), err=" + KBEngineApp.app.serverErr(failedcode));
         }
 
         public void onLoginBaseapp()
         {
-            info("connect to loginBaseapp, please wait...(Á¬½Óµ½Íø¹Ø£¬ ÇëÉÔºó...)");
+            info("connect to loginBaseapp, please wait...(è¿žæŽ¥åˆ°ç½‘å…³ï¼Œ è¯·ç¨åŽ...)");
         }
 
         public void OnLoginSuccessfully(OnLoginSuccessfullyEvent evt)
         {
             Debug.Log("login is successfully!");
-            info("login is successfully!(µÇÂ½³É¹¦!)");
+            info("login is successfully!(ç™»é™†æˆåŠŸ!)");
             ui_state = 1;
             //this.Publish(new UnloadSceneCommand() { SceneName = "LoginScene" });
             this.Publish(new LoadSceneCommand() { SceneName = "WorldScene" });

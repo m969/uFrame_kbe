@@ -35,7 +35,9 @@
 
 			foreach (System.Reflection.Assembly ass in AppDomain.CurrentDomain.GetAssemblies()) 
 			{
-				script = ass.GetType (KBEngineApp.app.getInitArgs().KbeMvvmNameSpace + "." + modulename);//uFrame_kbe
+				//uFrame_kbe
+				script = ass.GetType (KBEngineApp.app.getInitArgs().KbeMvvmNameSpace + "." + modulename);
+				//uFrame_kbe
 				if(script == null)
 				{
 					script = ass.GetType (modulename);
@@ -49,7 +51,7 @@
 			useMethodDescrAlias = false;
 
 			if(script == null)
-				Dbg.ERROR_MSG("can't load(KbeBalls." + modulename + ")!");
+				Dbg.ERROR_MSG("can't load(KBEngine." + modulename + ")!");
 		}
     }
 

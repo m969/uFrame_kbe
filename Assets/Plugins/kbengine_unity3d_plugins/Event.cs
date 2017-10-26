@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace KBEngine
+﻿namespace KBEngine
 {
   	using UnityEngine; 
 	using System; 
@@ -244,26 +242,25 @@ namespace KBEngine
 			通常由渲染表现层来注册, 例如：监听角色血量属性的变化， 如果UI层注册这个事件，
 			事件触发后就可以根据事件所附带的当前血量值来改变角色头顶的血条值。
 		*/
-        private static MethodInfo _publishMethodInfo;//uFrame_kbe
-        private static Dictionary<string, Type> _eventTypes = new Dictionary<string, Type>();//uFrame_kbe
+		//uFrame_kbe
+        private static System.Reflection.MethodInfo _publishMethodInfo;
+        private static Dictionary<string, Type> _eventTypes = new Dictionary<string, Type>();
 		public static void fireOut(string eventname, params object[] args)
 		{
-            fire_(events_out, firedEvents_out, eventname, args);
+			fire_(events_out, firedEvents_out, eventname, args);
 
-            //uFrame_kbe
             var eventAggregator = KBEngineApp.app.getInitArgs().EventAggregator;
             if (_publishMethodInfo == null)
                 _publishMethodInfo = eventAggregator.GetType().GetMethod("Publish");
 
             var publishEventName = eventname + "Event";
-            //publishEventName = publishEventName.Replace("_", "");
             Type eventType = null;
 		    _eventTypes.TryGetValue(publishEventName, out eventType);
             if (eventType == null)
             {
                 foreach (System.Reflection.Assembly ass in AppDomain.CurrentDomain.GetAssemblies())
                 {
-                    eventType = ass.GetType(KBEngineApp.app.getInitArgs().KbeMvvmNameSpace + "." + publishEventName);//uFrame_kbe
+                    eventType = ass.GetType(KBEngineApp.app.getInitArgs().KbeMvvmNameSpace + "." + publishEventName);
 
                     if (eventType == null)
                         eventType = ass.GetType(publishEventName);
@@ -279,9 +276,9 @@ namespace KBEngine
                 var evt = Activator.CreateInstance(eventType, args);
                 _publishMethodInfo.MakeGenericMethod(eventType).Invoke(eventAggregator, new object[] { evt });
             }
-            //uFrame_kbe
-        }
-
+		}
+		//uFrame_kbe
+		
 		/*
 			渲染表现层抛出事件(in = render->kbe)
 			通常由kbe插件层来注册， 例如：UI层点击登录， 此时需要触发一个事件给kbe插件层进行与服务端交互的处理。
