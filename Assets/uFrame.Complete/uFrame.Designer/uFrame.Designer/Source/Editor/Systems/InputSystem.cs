@@ -50,15 +50,15 @@ namespace uFrame.Editor
             if (e.keyCode == KeyCode.LeftControl || e.keyCode == KeyCode.LeftCommand ||
                        e.keyCode == KeyCode.RightControl || e.keyCode == KeyCode.RightCommand)
             {
-                Control = e.type == EventType.keyDown;
+                Control = e.type == EventType.KeyDown;
             }
             if ( e.keyCode == KeyCode.LeftAlt || e.keyCode == KeyCode.RightAlt)
             {
-                Alt = e.type == EventType.keyDown;
+                Alt = e.type == EventType.KeyDown;
             }
             if (e.keyCode == KeyCode.LeftShift || e.keyCode == KeyCode.RightShift)
             {
-                Shift = e.type == EventType.keyDown;
+                Shift = e.type == EventType.KeyDown;
             }
             if (e.type == EventType.KeyDown)
             {

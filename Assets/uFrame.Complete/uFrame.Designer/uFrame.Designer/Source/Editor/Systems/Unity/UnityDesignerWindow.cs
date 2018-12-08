@@ -213,7 +213,7 @@ namespace uFrame.Editor.Unity
 
             if (LastEvent != null)
             {
-                if (LastEvent.type == EventType.keyUp)
+                if (LastEvent.type == EventType.KeyUp)
                 {
                     if (LastEvent.keyCode == KeyCode.LeftShift || LastEvent.keyCode == KeyCode.RightShift)
                         mouse.ModifierKeyStates.Shift = false;
@@ -226,7 +226,7 @@ namespace uFrame.Editor.Unity
 
             if (LastEvent != null)
             {
-                if (LastEvent.type == EventType.keyDown)
+                if (LastEvent.type == EventType.KeyDown)
                 {
                     if (LastEvent.keyCode == KeyCode.LeftShift || LastEvent.keyCode == KeyCode.RightShift)
                         mouse.ModifierKeyStates.Shift = true;
