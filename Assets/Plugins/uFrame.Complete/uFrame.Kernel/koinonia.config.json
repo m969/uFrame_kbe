@@ -1,8 +1,0 @@
-{
-  "title" : "uFrame Kernel",
-  "author" : "uFrame",
-  "license" : "MIT",
-  "dependencies" : {
-    "uFrame/Core" : "master"
-  }
-}
