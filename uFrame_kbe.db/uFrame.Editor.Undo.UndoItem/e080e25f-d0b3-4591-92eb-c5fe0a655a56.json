@@ -1,8 +1,0 @@
-{
-	"Identifier":"e080e25f-d0b3-4591-92eb-c5fe0a655a56"	, 
-	"Time":"12/06/2018 22:22:35"	, 
-	"Group":222235	, 
-	"DataRecordId":"fb813aa0-68e1-4347-a5a2-b6528f8f086f"	, 
-	"Type":2	, 
-	"RecordType":"uFrame.MVVM.MVVMGraph, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"IsDirty\":false\t, \r\n\t\"Identifier\":\"fb813aa0-68e1-4347-a5a2-b6528f8f086f\"\t, \r\n\t\"Expanded\":false}\r\n"}

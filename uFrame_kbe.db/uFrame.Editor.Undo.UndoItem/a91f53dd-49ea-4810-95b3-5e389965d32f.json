@@ -1,8 +1,0 @@
-{
-	"Identifier":"a91f53dd-49ea-4810-95b3-5e389965d32f"	, 
-	"Time":"12/06/2018 22:22:35"	, 
-	"Group":222235	, 
-	"DataRecordId":"b4040e77-f519-4eca-89cd-a90dd510b549"	, 
-	"Type":2	, 
-	"RecordType":"uFrame.MVVM.MvvmWorkspace, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"Identifier\":\"b4040e77-f519-4eca-89cd-a90dd510b549\"\t, \r\n\t\"Name\":\"KBEMVVM\"\t, \r\n\t\"Expanded\":false}\r\n"}

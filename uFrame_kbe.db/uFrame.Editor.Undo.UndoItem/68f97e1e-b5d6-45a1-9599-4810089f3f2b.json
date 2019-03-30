@@ -1,8 +1,0 @@
-{
-	"Identifier":"68f97e1e-b5d6-45a1-9599-4810089f3f2b"	, 
-	"Time":"12/06/2018 22:25:56"	, 
-	"Group":222556	, 
-	"DataRecordId":"82908d3e-3b65-40a9-8d76-b911d5f39126"	, 
-	"Type":2	, 
-	"RecordType":"uFrame.MVVM.SceneTypeNode, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"Name\":\"NewSceneTypeNode\"\t, \r\n\t\"Order\":0\t, \r\n\t\"GraphId\":\"fb813aa0-68e1-4347-a5a2-b6528f8f086f\"\t, \r\n\t\"Identifier\":\"82908d3e-3b65-40a9-8d76-b911d5f39126\"\t, \r\n\t\"Expanded\":false}\r\n"}
