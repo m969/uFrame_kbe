@@ -103,11 +103,11 @@ std::string ClientSDKUFrame::typeToType(const std::string& type)
 	}
 	else if (type == "ARRAY")
 	{
-		return "List";
+		return "List<object>";
 	}
 	else if (type == "FIXED_DICT")
 	{
-		return "Dictionary";
+		return "Dictionary<string, object>";
 	}
 #ifdef CLIENT_NO_FLOAT
 	else if (type == "VECTOR2")
@@ -2002,10 +2002,14 @@ bool ClientSDKUFrame::writeEntityModuleViewBaseBegin(ScriptDefModule* pEntityScr
 		{
 			PropertyDescription* pPropertyDescription = propIter->second;
 			EntityComponentType * pEntityComponentType = (EntityComponentType*)pPropertyDescription->getDataType();
+			uint16 typeID = datatype2id(pPropertyDescription->getDataType()->getName());
+			std::string typeName = typeToType(datatype2nativetype(pPropertyDescription->getDataType()->getName()));
+			if (typeID == 0 || strcmp(pPropertyDescription->getDataType()->getName(), "FIXED_DICT") == 0 || strcmp(pPropertyDescription->getDataType()->getName(), "ARRAY") == 0)
+				typeName = pPropertyDescription->getDataType()->aliasName();
 			sourcefileBody_ += fmt::format("\t\t[UnityEngine.SerializeField()]\n");
 			sourcefileBody_ += fmt::format("\t\t[uFrame.MVVM.Attributes.UFGroup(\"View Model Properties\")]\n");
 			sourcefileBody_ += fmt::format("\t\t[UnityEngine.HideInInspector()]\n");
-			sourcefileBody_ += fmt::format("\t\tpublic {} _{};\n\n", pPropertyDescription->getDataType()->getName(), pPropertyDescription->getName());
+			sourcefileBody_ += fmt::format("\t\tpublic {} _{};\n\n", typeName, pPropertyDescription->getName());
 
 			sourcefileBody_ += fmt::format("\t\t[uFrame.MVVM.Attributes.UFToggleGroup(\"{}\")]\n", pPropertyDescription->getName());
 			sourcefileBody_ += fmt::format("\t\t[UnityEngine.HideInInspector()]\n");
@@ -2051,7 +2055,12 @@ bool ClientSDKUFrame::writeEntityModuleViewBaseBegin(ScriptDefModule* pEntityScr
 		for (; propIter != clientPropertys.end(); ++propIter)
 		{
 			PropertyDescription* pPropertyDescription = propIter->second;
-			sourcefileBody_ += fmt::format("\t\tpublic virtual void {}Changed({} arg1) {{  }}\n", pPropertyDescription->getName(), typeToType(datatype2nativetype(datatype2id(pPropertyDescription->getDataType()->getName()))));
+			DataType* pDataType = pPropertyDescription->getDataType();
+			uint16 typeID = datatype2id(pDataType->getName());
+			std::string typeName = typeToType(datatype2nativetype(pDataType->getName()));
+			if (typeID == 0 || strcmp(pDataType->getName(), "FIXED_DICT") == 0 || strcmp(pDataType->getName(), "ARRAY") == 0)
+				typeName = pDataType->aliasName();
+			sourcefileBody_ += fmt::format("\t\tpublic virtual void {}Changed({} arg1) {{  }}\n", pPropertyDescription->getName(), typeName/*typeToType(datatype2nativetype(datatype2id(pPropertyDescription->getDataType()->getName())))*/);
 		}
 		sourcefileBody_ += "\n";
 
@@ -2112,14 +2121,17 @@ bool ClientSDKUFrame::writeEntityModuleBegin(ScriptDefModule* pEntityScriptDefMo
 			{
 				DataType* pDataType = (*iter);
 				uint16 typeID = datatype2id(pDataType->getName());
+				//if (typeID == 0 || strcmp(pDataType->getName(), "FIXED_DICT") == 0 || strcmp(pDataType->getName(), "ARRAY") == 0)
+				//	typeID = pDataType->id();
+				std::string typeName = typeToType(datatype2nativetype(pDataType->getName()));
 				if (typeID == 0 || strcmp(pDataType->getName(), "FIXED_DICT") == 0 || strcmp(pDataType->getName(), "ARRAY") == 0)
-					typeID = pDataType->id();
-				argsStr += fmt::format("public {} arg{}; ", typeToType(datatype2nativetype(typeID)), i);
+					typeName = pDataType->aliasName();
+				argsStr += fmt::format("public {} arg{}; ", typeName, i);
 				++i;
 			}
 			sourcefileBody_ += fmt::format("\tpublic class {}{}Command:uFrame.MVVM.ViewModels.ViewModelCommand{}{}{}\n", pEntityScriptDefModule->getName(), pMethodDescription->getName(), "{ ", argsStr, "}\n");
 		}
-		//uFrame_kbe
+		//
 
 		sourcefileBody_ += fmt::format("\t// Please inherit and implement \"class {} : {}\"\n", pEntityScriptDefModule->getName(), newModuleName);
 		sourcefileBody_ += fmt::format("\tpublic abstract class {} : uFrame.MVVM.ViewModels.ViewModel\n\t{{\n", newModuleName);//uFrame_kbe
@@ -2941,8 +2953,9 @@ bool ClientSDKUFrame::writeEntityProperty_ARRAY(ScriptDefModule* pEntityScriptDe
 bool ClientSDKUFrame::writeEntityProperty_FIXED_DICT(ScriptDefModule* pEntityScriptDefModule,
 	ScriptDefModule* pCurrScriptDefModule, PropertyDescription* pPropertyDescription)
 {
-	sourcefileBody_ += fmt::format("\t\tpublic {} {} = new {}();\n", pPropertyDescription->getDataTypeName(), pPropertyDescription->getName(),
-		pPropertyDescription->getDataTypeName());
+	sourcefileBody_ = propertyFormat(sourcefileBody_, pPropertyDescription->getName(), pPropertyDescription->getDataTypeName(), pPropertyDescription->getDefaultValStr());
+	//sourcefileBody_ += fmt::format("\t\tpublic {} {} = new {}();\n", pPropertyDescription->getDataTypeName(), pPropertyDescription->getName(),
+	//	pPropertyDescription->getDataTypeName());
 
 	std::string name = pPropertyDescription->getName();
 	name[0] = std::toupper(name[0]);
@@ -2962,8 +2975,9 @@ bool ClientSDKUFrame::writeEntityProperty_VECTOR2(ScriptDefModule* pEntityScript
 	name[0] = std::toupper(name[0]);
 	sourcefileBody_ += fmt::format("\t\tpublic virtual void on{}Changed(Vector2Int oldValue) {{}}\n", name);
 #else
-	sourcefileBody_ += fmt::format("\t\tpublic Vector2 {} = {};\n", pPropertyDescription->getName(),
-		(strlen(pPropertyDescription->getDefaultValStr()) > 0 ? pPropertyDescription->getDefaultValStr() : "new Vector2(0f, 0f)"));
+	sourcefileBody_ = propertyFormat(sourcefileBody_, pPropertyDescription->getName(), "Vector2", (strlen(pPropertyDescription->getDefaultValStr()) > 0 ? pPropertyDescription->getDefaultValStr() : "new Vector2(0f, 0f)"));
+	//sourcefileBody_ += fmt::format("\t\tpublic Vector2 {} = {};\n", pPropertyDescription->getName(),
+	//	(strlen(pPropertyDescription->getDefaultValStr()) > 0 ? pPropertyDescription->getDefaultValStr() : "new Vector2(0f, 0f)"));
 
 	std::string name = pPropertyDescription->getName();
 	name[0] = std::toupper(name[0]);
@@ -2985,8 +2999,9 @@ bool ClientSDKUFrame::writeEntityProperty_VECTOR3(ScriptDefModule* pEntityScript
 	name[0] = std::toupper(name[0]);
 	sourcefileBody_ += fmt::format("\t\tpublic virtual void on{}Changed(Vector3Int oldValue) {{}}\n", name);
 #else
-	sourcefileBody_ += fmt::format("\t\tpublic Vector3 {} = {};\n", pPropertyDescription->getName(),
-		(strlen(pPropertyDescription->getDefaultValStr()) > 0 ? pPropertyDescription->getDefaultValStr() : "new Vector3(0f, 0f, 0f)"));
+	sourcefileBody_ = propertyFormat(sourcefileBody_, pPropertyDescription->getName(), "Vector3", (strlen(pPropertyDescription->getDefaultValStr()) > 0 ? pPropertyDescription->getDefaultValStr() : "new Vector3(0f, 0f, 0f)"));
+	//sourcefileBody_ += fmt::format("\t\tpublic Vector3 {} = {};\n", pPropertyDescription->getName(),
+	//	(strlen(pPropertyDescription->getDefaultValStr()) > 0 ? pPropertyDescription->getDefaultValStr() : "new Vector3(0f, 0f, 0f)"));
 
 	std::string name = pPropertyDescription->getName();
 	name[0] = std::toupper(name[0]);
@@ -3023,8 +3038,9 @@ bool ClientSDKUFrame::writeEntityProperty_VECTOR4(ScriptDefModule* pEntityScript
 bool ClientSDKUFrame::writeEntityProperty_ENTITYCALL(ScriptDefModule* pEntityScriptDefModule,
 	ScriptDefModule* pCurrScriptDefModule, PropertyDescription* pPropertyDescription)
 {
-	sourcefileBody_ += fmt::format("\t\tpublic byte[] {} = {};\n", pPropertyDescription->getName(),
-		(strlen(pPropertyDescription->getDefaultValStr()) > 0 ? pPropertyDescription->getDefaultValStr() : "new byte[0]"));
+	sourcefileBody_ = propertyFormat(sourcefileBody_, pPropertyDescription->getName(), "byte[]", (strlen(pPropertyDescription->getDefaultValStr()) > 0 ? pPropertyDescription->getDefaultValStr() : "new byte[0]"));
+	//sourcefileBody_ += fmt::format("\t\tpublic byte[] {} = {};\n", pPropertyDescription->getName(),
+	//	(strlen(pPropertyDescription->getDefaultValStr()) > 0 ? pPropertyDescription->getDefaultValStr() : "new byte[0]"));
 
 	std::string name = pPropertyDescription->getName();
 	name[0] = std::toupper(name[0]);
@@ -3037,29 +3053,23 @@ bool ClientSDKUFrame::writeEntityMethod(ScriptDefModule* pEntityScriptDefModule,
 	ScriptDefModule* pCurrScriptDefModule, MethodDescription* pMethodDescription, const char* fillString)
 {
 	//uFrame_kbe
-	sourcefileBody_ += fmt::format("\t\tpublic virtual void {}({}){}{}{}{}", pMethodDescription->getName(), fillString, "{ this.Execute(new ", pEntityScriptDefModule->getName(), pMethodDescription->getName(), "Command(){ ");
-	ScriptDefModule::METHODDESCRIPTION_MAP& clientMethods = pEntityScriptDefModule->getClientMethodDescriptions();
-	ScriptDefModule::METHODDESCRIPTION_MAP::iterator methodIter = clientMethods.begin();
-	for (; methodIter != clientMethods.end(); ++methodIter)
+	sourcefileBody_ += fmt::format("\n\t\tpublic virtual void {}({}){}{}{}{}", pMethodDescription->getName(), fillString, "{ this.Execute(new ", pEntityScriptDefModule->getName(), pMethodDescription->getName(), "Command(){ ");
+	std::vector<DataType*>& argTypes = pMethodDescription->getArgTypes();
+	std::vector<DataType*>::iterator iter = argTypes.begin();
+	int i = 1;
+	for (; iter != argTypes.end(); ++iter)
 	{
-		MethodDescription* pMethodDescription = methodIter->second;
-		std::vector<DataType*>& argTypes = pMethodDescription->getArgTypes();
-		std::vector<DataType*>::iterator iter = argTypes.begin();
-		int i = 1;
-		for (; iter != argTypes.end(); ++iter)
-		{
-			if (i == 1)
-				sourcefileBody_ += fmt::format("arg{} = arg{} ", i, i);
-			else
-				sourcefileBody_ += fmt::format(", arg{} = arg{} ", i, i);
-			++i;
-		}
+		if (i == 1)
+			sourcefileBody_ += fmt::format("arg{} = arg{} ", i, i);
+		else
+			sourcefileBody_ += fmt::format(", arg{} = arg{} ", i, i);
+		++i;
 	}
 	sourcefileBody_ += fmt::format("{}", "}); }\n");
 	sourcefileBody_ += fmt::format("\t\tprivate Signal<{}{}Command> _{}Command;\n", pEntityScriptDefModule->getName(), pMethodDescription->getName(), pMethodDescription->getName());
 	sourcefileBody_ += fmt::format("\t\tpublic virtual Signal<{}{}Command> {}Command {}{}{}{}{}\n", pEntityScriptDefModule->getName(), pMethodDescription->getName(), pMethodDescription->getName(), "{ get { return _", pMethodDescription->getName(), "Command; } set { _", pMethodDescription->getName(), "Command = value; } }");
 	sourcefileBody_ += fmt::format("\t\tpublic virtual void Execute({}{}Command argument) {}\n", pEntityScriptDefModule->getName(), pMethodDescription->getName(), "{" + fmt::format(" this.{}Command.OnNext(argument); ", pMethodDescription->getName()) + "}");
-	//uFrame_kbe
+	//
 	return true;
 }
 
